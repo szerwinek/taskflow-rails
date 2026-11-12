@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <title>TaskFlow — zarządzanie projektami</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <%= link_to "TaskFlow", root_path, class: "brand" %>
+        <nav>
+          <% if logged_in? %>
+            <%= link_to "Panel", root_path %>
+            <%= link_to "Projekty", projects_path %>
+            <span class="user-name"><%= current_user.name %></span>
+            <%= button_to "Wyloguj", logout_path, method: :delete, class: "nav-button" %>
+          <% else %>
+            <%= link_to "Logowanie", login_path %>
+            <%= link_to "Rejestracja", signup_path, class: "nav-cta" %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+    <main class="container main">
+      <% if notice %><div class="flash success"><%= notice %></div><% end %>
+      <% if alert %><div class="flash error"><%= alert %></div><% end %>
+      <%= yield %>
+    </main>
+    <footer class="container footer">TaskFlow · Projekt edukacyjny Ruby on Rails</footer>
+  </body>
+</html>

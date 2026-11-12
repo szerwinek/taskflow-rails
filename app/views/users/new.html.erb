@@ -1,0 +1,13 @@
+<section class="auth-card">
+  <h1>Utwórz konto</h1>
+  <p class="muted">Dołącz do TaskFlow i uporządkuj swoją pracę.</p>
+  <%= render "shared/errors", object: @user %>
+  <%= form_with model: @user, url: signup_path do |form| %>
+    <div class="field"><%= form.label :name, "Imię i nazwisko" %><%= form.text_field :name, required: true, autocomplete: "name" %></div>
+    <div class="field"><%= form.label :email, "Adres e-mail" %><%= form.email_field :email, required: true, autocomplete: "email" %></div>
+    <div class="field"><%= form.label :password, "Hasło (minimum 8 znaków)" %><%= form.password_field :password, required: true, minlength: 8, autocomplete: "new-password" %></div>
+    <div class="field"><%= form.label :password_confirmation, "Powtórz hasło" %><%= form.password_field :password_confirmation, required: true, autocomplete: "new-password" %></div>
+    <%= form.submit "Zarejestruj się", class: "btn primary full" %>
+  <% end %>
+  <p class="muted center">Masz już konto? <%= link_to "Zaloguj się", login_path %></p>
+</section>

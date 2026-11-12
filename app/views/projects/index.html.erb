@@ -1,0 +1,8 @@
+<div class="page-heading"><div><p class="eyebrow">ORGANIZACJA PRACY</p><h1>Moje projekty</h1><p class="muted">Twórz projekty i zarządzaj przypisanymi do nich zadaniami.</p></div><%= link_to "+ Nowy projekt", new_project_path, class: "btn primary" %></div>
+<% if @projects.any? %><div class="cards">
+  <% @projects.each do |project| %><article class="project-card">
+    <div class="card-top"><span class="pill <%= project.status %>"><%= project.status == "active" ? "Aktywny" : "Archiwalny" %></span><span class="muted small"><%= project.tasks.count %> zadań</span></div>
+    <h3><%= link_to project.name, project %></h3><p class="muted"><%= truncate(project.description.presence || "Brak opisu projektu", length: 130) %></p>
+    <div class="card-bottom"><span class="muted small">Termin: <%= project.deadline&.strftime("%d.%m.%Y") || "—" %></span><%= link_to "Szczegóły →", project %></div>
+  </article><% end %>
+</div><% else %><div class="empty"><h3>Brak projektów</h3><p>Dodaj pierwszy projekt.</p><%= link_to "Utwórz projekt", new_project_path, class: "btn primary" %></div><% end %>

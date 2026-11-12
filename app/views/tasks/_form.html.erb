@@ -1,0 +1,11 @@
+<%= render "shared/errors", object: task %>
+<%= form_with model: [project, task] do |form| %>
+  <div class="field"><%= form.label :title, "Nazwa zadania" %><%= form.text_field :title, required: true, maxlength: 160 %></div>
+  <div class="field"><%= form.label :description, "Opis" %><%= form.text_area :description, rows: 4, maxlength: 2000 %></div>
+  <div class="form-grid">
+    <div class="field"><%= form.label :status, "Status" %><%= form.select :status, [["Do zrobienia", "todo"], ["W trakcie", "in_progress"], ["Ukończone", "done"]] %></div>
+    <div class="field"><%= form.label :priority, "Priorytet" %><%= form.select :priority, [["Niski", "low"], ["Średni", "medium"], ["Wysoki", "high"]] %></div>
+  </div>
+  <div class="field"><%= form.label :due_date, "Termin wykonania" %><%= form.date_field :due_date %></div>
+  <div class="actions"><%= form.submit class: "btn primary" %><%= link_to "Anuluj", project_path(project), class: "btn secondary" %></div>
+<% end %>

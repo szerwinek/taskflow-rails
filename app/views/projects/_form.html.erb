@@ -1,0 +1,10 @@
+<%= render "shared/errors", object: project %>
+<%= form_with model: project do |form| %>
+  <div class="field"><%= form.label :name, "Nazwa projektu" %><%= form.text_field :name, required: true, maxlength: 120 %></div>
+  <div class="field"><%= form.label :description, "Opis" %><%= form.text_area :description, rows: 5, maxlength: 2000 %></div>
+  <div class="form-grid">
+    <div class="field"><%= form.label :status, "Status" %><%= form.select :status, [["Aktywny", "active"], ["Zarchiwizowany", "archived"]] %></div>
+    <div class="field"><%= form.label :deadline, "Termin zakończenia" %><%= form.date_field :deadline %></div>
+  </div>
+  <div class="actions"><%= form.submit class: "btn primary" %><%= link_to "Anuluj", projects_path, class: "btn secondary" %></div>
+<% end %>

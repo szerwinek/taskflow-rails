@@ -1,0 +1,34 @@
+<div class="page-heading">
+  <div><p class="eyebrow">PANEL UŻYTKOWNIKA</p><h1>Cześć, <%= current_user.name %>!</h1><p class="muted">Oto podsumowanie Twojej pracy.</p></div>
+  <%= link_to "+ Nowy projekt", new_project_path, class: "btn primary" %>
+</div>
+<div class="stats">
+  <div class="stat-card"><span>Wszystkie projekty</span><strong><%= @project_count %></strong></div>
+  <div class="stat-card"><span>Otwarte zadania</span><strong><%= @open_task_count %></strong></div>
+  <div class="stat-card"><span>Ukończone zadania</span><strong><%= @done_task_count %></strong></div>
+</div>
+<section class="section">
+  <div class="section-heading"><h2>Ostatnie projekty</h2><%= link_to "Zobacz wszystkie", projects_path %></div>
+  <% if @projects.any? %>
+    <div class="cards">
+      <% @projects.each do |project| %>
+        <article class="project-card">
+          <div class="card-top"><span class="pill <%= project.status %>"><%= project.status == "active" ? "Aktywny" : "Archiwalny" %></span><span class="muted small"><%= project.tasks.count %> zadań</span></div>
+          <h3><%= link_to project.name, project %></h3>
+          <p class="muted"><%= truncate(project.description.presence || "Brak opisu projektu", length: 110) %></p>
+          <div class="card-bottom"><span class="muted small">Termin: <%= project.deadline&.strftime("%d.%m.%Y") || "Nie określono" %></span><%= link_to "Otwórz →", project %></div>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty"><h3>Nie masz jeszcze projektów</h3><p>Utwórz pierwszy projekt, aby zacząć organizować zadania.</p><%= link_to "Dodaj projekt", new_project_path, class: "btn primary" %></div>
+  <% end %>
+</section>
+<section class="section">
+  <div class="section-heading"><h2>Ostatnio dodane zadania</h2></div>
+  <% if @tasks.any? %>
+    <div class="table-wrap"><table><thead><tr><th>Zadanie</th><th>Projekt</th><th>Status</th><th>Termin</th></tr></thead><tbody>
+      <% @tasks.each do |task| %><tr><td><strong><%= link_to task.title, project_task_path(task.project, task) %></strong></td><td><%= link_to task.project.name, task.project %></td><td><%= task_status(task.status) %></td><td><%= task.due_date&.strftime("%d.%m.%Y") || "—" %></td></tr><% end %>
+    </tbody></table></div>
+  <% else %><p class="muted">Nie dodano jeszcze żadnych zadań.</p><% end %>
+</section>

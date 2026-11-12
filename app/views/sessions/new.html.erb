@@ -1,0 +1,10 @@
+<section class="auth-card">
+  <h1>Logowanie</h1>
+  <p class="muted">Zaloguj się, aby zarządzać swoimi projektami.</p>
+  <%= form_with url: login_path, method: :post do |form| %>
+    <div class="field"><%= form.label :email, "Adres e-mail" %><%= form.email_field :email, required: true, autofocus: true, autocomplete: "email" %></div>
+    <div class="field"><%= form.label :password, "Hasło" %><%= form.password_field :password, required: true, autocomplete: "current-password" %></div>
+    <%= form.submit "Zaloguj się", class: "btn primary full" %>
+  <% end %>
+  <p class="muted center">Nie masz konta? <%= link_to "Zarejestruj się", signup_path %></p>
+</section>
